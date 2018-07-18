@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2015-2016 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2osys.pos.mapper.ConMapper">
+          
+    <!-- 연동대상 목록 (주문정보) -->
+    <resultMap id="conInfo" type="ConInfo">
+        <result property="conActType"    column="CON_ACT_TYPE" /> <!-- 연동_처리_구분 (1: 접수, 2: 수정, 3: 취소) -->
+        <result property="posTypeCd"     column="POS_TYPE_CD"  /> <!-- POS_구분_코드 (SY_CODE = 'PT') -->
+        <result property="conUrl"        column="CON_URL"      /> <!-- 연동_URL -->
+        <result property="conData1"      column="CON_DATA_1"   /> <!-- 연동_데이터_1 (업체구분코드) -->
+        <result property="conData2"      column="CON_DATA_2"   /> <!-- 연동_데이터_2 (인증키) -->
+        <result property="conData3"      column="CON_DATA_3"   /> <!-- 연동_데이터_3 (스카이포스 토큰생성 URL) -->
+        <result property="posShopCode"   column="POS_SHOP_CODE"/> <!-- POS_가맹점_코드 -->
+        <result property="ordNo"         column="ORD_NO"       /> <!-- 주문_일련번호 -->
+        <result property="ordCuTel"      column="ORD_CU_TEL"   /> <!-- 주문_고객_전화번호 -->
+        <result property="ordCuTel2"     column="ORD_CU_TEL_2" /> <!-- 주문_고객_전화번호_2 (연락번호) -->
+        <result property="ordMemo"       column="ORD_MEMO"     /> <!-- 주문_메모 -->
+        <result property="takeoutYn"     column="TAKEOUT_YN"   /> <!-- 테이크아웃_여부 -->
+        <result property="takeoutDate"   column="TAKEOUT_DATE" /> <!-- 테이크아웃_일시 (YYYYMMDDHH24MISS. 테이크아웃_여부가 'Y'일 경우 전송) -->
+        <result property="readyTime"     column="READY_TIME"   /> <!-- 준비_시간 (단위: 분, 조리시간) -->
+        <result property="eaAddr1"       column="EA_ADDR_1"    /> <!-- 도착_주소_1 (시/도) -->
+        <result property="eaAddr2"       column="EA_ADDR_2"    /> <!-- 도착_주소_2 (시/군/구) -->
+        <result property="eaAddr3"       column="EA_ADDR_3"    /> <!-- 도착_주소_3 (읍/면/동/리) -->
+        <result property="eaAddrJb"      column="EA_ADDR_JB"   /> <!-- 도착_주소_지번주소 (구주소, 전체 주소. 예: 서울특별시 구로구 신도림동 337) -->
+        <result property="eaAddrSt"      column="EA_ADDR_ST"   /> <!-- 도착_주소_도로명주소 (신주소, 전체 주소. 예: 서울특별시 구로구 경인로 661) -->
+        <result property="eaAddrEtc"     column="EA_ADDR_ETC"  /> <!-- 도착_주소_상세주소 (사용자입력 상세주소. 예: 푸르지오1차 104동 906호) -->
+        <result property="eaLatY"        column="EA_LAT_Y"     /> <!-- 도착_위도_좌표 (Y좌표, LATITUDE) -->
+        <result property="eaLngX"        column="EA_LNG_X"     /> <!-- 도착_경도_좌표 (X좌표, LONGITUDE) -->
+        <result property="ordAmt"        column="ORD_AMT"      /> <!-- 주문_금액 (총액) -->
+        <result property="payAmt"        column="PAY_AMT"      /> <!-- 지불_금액 (총액) -->
+        <result property="chargeType"    column="CHARGE_TYPE"  /> <!-- 결제_구분 (1: 도착지결제, 2: 선결제) -->
+        <result property="payType"       column="PAY_TYPE"     /> <!-- 지불_구분 (1: 현금, 2: 카드) -->
+        <result property="frTypeCode"    column="FR_TYPE_CODE" /> <!-- 프랜차이즈_구분_코드 -->
+        <result property="goodsNames"    column="GOODS_NAMES"  /> <!-- 상품_이름 (표시 이름) -->
+        
+        <result property="tokenAuthInfo" column="TOKEN_AUTH_INFO"  /> <!-- 토큰_인증_정보 (현재는 SKY POS만 출력함) -->
+    </resultMap>
+    
+    <!-- 상태변경 연동대상 목록 -->
+    <resultMap id="conStatusInfo" type="ConStatusInfo">
+        <result property="conActType"    column="CON_ACT_TYPE"  /> <!-- 연동_처리_구분 (1: 배차, 2: 출발, 3: 완료, 4: 취소, 5: 배차취소) -->
+        <result property="posTypeCd"     column="POS_TYPE_CD"   /> <!-- POS_구분_코드 (SY_CODE = 'PT') -->
+        <result property="conUrl"        column="CON_URL"       /> <!-- 연동_URL -->
+        <result property="conData1"      column="CON_DATA_1"    /> <!-- 연동_데이터_1 (업체구분코드) -->
+        <result property="conData2"      column="CON_DATA_2"    /> <!-- 연동_데이터_2 (인증키) -->
+        <result property="conData3"      column="CON_DATA_3"    /> <!-- 연동_데이터_3 (스카이포스 토큰생성 URL) -->
+        <result property="posShopCode"   column="POS_SHOP_CODE" /> <!-- POS_가맹점_코드 -->
+        <result property="ordNo"         column="ORD_NO"        /> <!-- 주문_일련번호 -->
+        
+        <result property="posOrdCode"    column="POS_ORD_CODE"  /> <!-- POS_주문_코드 (주문일련번호) -->
+        <result property="posOrdDate"    column="POS_ORD_DATE"  /> <!-- POS_주문_일자 (YYYYMMDD) -->
+        <result property="cthDate"       column="CTH_DATE"      /> <!-- 배차_일시 (YYYYMMDDHH24MISS) -->
+        <result property="cthWkTel"      column="CTH_WK_TEL"    /> <!-- 배차_배송원_전화번호 -->
+        <result property="cthWkName"     column="CTH_WK_NAME"   /> <!-- 배차_배송원_이름 -->
+        <result property="cthWkArrDate"  column="CTH_WK_ARR_DATE"/><!-- 배차_배송원_도착_일시 (YYYYMMDDHH24MISS) - 2017-11-30 추가분 -->
+        
+        <result property="pickupDate"    column="PICKUP_DATE"   /> <!-- 출발_일시 (YYYYMMDDHH24MISS) -->
+        <result property="endDate"       column="END_DATE"      /> <!-- 완료_일시 (YYYYMMDDHH24MISS) -->
+        <result property="dvryAmt"       column="DVRY_AMT"      /> <!-- 배달대행_금액 -->
+        <result property="dvryExCharge"  column="DVRY_EX_CHARGE"/> <!-- 배달대행_할증_요금 -->
+        <result property="dvryMngFee"    column="DVRY_MNG_FEE"  /> <!-- 배달대행_관리_가격 (건당 배송수수료) -->
+        
+        <result property="ordAmt"        column="ORD_AMT"       /> <!-- 주문_금액 (총액) -->
+        <result property="payAmt"        column="PAY_AMT"       /> <!-- 지불_금액 (총액) -->
+        <result property="chargeType"    column="CHARGE_TYPE"   /> <!-- 결제_구분 (1: 도착지결제, 2: 선결제) -->
+        <result property="payType"       column="PAY_TYPE"      /> <!-- 지불_구분 (1: 현금, 2: 카드) -->
+        
+        <result property="cardApprNum"   column="CARD_APPR_NUM" /> <!-- 카드_승인_번호 -->
+        <result property="tranType"      column="TRAN_TYPE"     /> <!-- 승인_구분 (11: 신용승인, 12: 승인취소, 21: 현금영수증, 22: 영수증 취소) -->
+        <result property="cardNum"       column="CARD_NUM"      /> <!-- 카드_번호 -->
+        <result property="acquirerName"  column="ACQUIRER_NAME" /> <!-- 매입사_이름 (카드사) -->
+        <result property="merchantNum"   column="MERCHANT_NUM"  /> <!-- 가맹점_번호 (카드사 가맹점번호) -->
+        <result property="totalAmount"   column="TOTAL_AMOUNT"  /> <!-- 총_결제금액 -->
+        <result property="approvalDate"  column="APPROVAL_DATE" /> <!-- 거래승인_일시 (YYMMDDHH24MISSW, W는 요일(0: 일요일)) - 2017-11-30 추가분 -->
+        
+        <result property="cancelDate"    column="CANCEL_DATE"   /> <!-- 취소_일시 (YYYYMMDDHH24MISS) -->
+        <result property="cancelMemo"    column="CANCEL_MEMO"   /> <!-- 취소_내용 -->
+        <result property="modDate"       column="MOD_DATE"      /> <!-- 최종수정_일시 (YYYYMMDDHH24MISS) -->
+        <result property="conSeqNo"      column="CON_SEQ_NO"    /> <!-- 연동_일련_번호 -->
+        
+        <result property="tokenAuthInfo" column="TOKEN_AUTH_INFO"  /> <!-- 토큰_인증_정보 (현재는 SKY POS만 출력함) -->
+    </resultMap>
+    
+    <!-- 주문상품 목록 -->
+    <resultMap id="goods" type="Goods">
+        <result property="posGoodsCode"  column="POS_GOODS_CODE" /> <!-- POS_상품_코드 -->
+        <result property="ordGoodsNo"    column="ORD_GOODS_NO"   /> <!-- 주문_상품_일련번호 (수정을 위한 고유번호) -->
+        <result property="frGoodsCode"   column="FR_GOODS_CODE"  /> <!-- 프랜차이즈_상품_코드 -->
+        <result property="GoodsName"     column="GOODS_NAME"     /> <!-- 상품_이름 -->
+        <result property="ordCnt"        column="ORD_CNT"        /> <!-- 주문_개수 -->
+        <result property="ordPrice"      column="ORD_PRICE"      /> <!-- 주문_가격 -->
+        <result property="option1Name"   column="OPTION_1_NAME"  /> <!-- 옵션_1_이름 -->
+        <result property="option1Price"  column="OPTION_1_PRICE" /> <!-- 옵션_1_가격 -->
+        <result property="option2Name"   column="OPTION_2_NAME"  /> <!-- 옵션_2_이름 -->
+        <result property="option2Price"  column="OPTION_2_PRICE" /> <!-- 옵션_2_가격 -->
+        <result property="ordNo"         column="ORD_NO"         /> <!-- 주문_일련번호 -->
+    </resultMap>
+    
+    <!-- 주문추가상품 목록 -->
+    <resultMap id="addGoods" type="AddGoods">
+        <result property="posAddGoodsCode" column="POS_ADD_GOODS_CODE" /> <!-- POS_상품_코드 -->
+        <result property="addGoodsNo"      column="ADD_GOODS_NO"   /> <!-- 추가_상품_일련번호 (수정을 위한 고유번호) -->
+        <result property="frGoodsCode"     column="FR_GOODS_CODE"  /> <!-- 프랜차이즈_상품_코드 -->
+        <result property="addGoodsName"    column="ADD_GOODS_NAME" /> <!-- 추가_상품_이름 -->
+        <result property="addGoodsCnt"     column="ADD_GOODS_CNT"  /> <!-- 추가_상품_개수 -->
+        <result property="addGoodsPrice"   column="ADD_GOODS_PRICE"/> <!-- 추가_상품_가격 -->
+        <result property="ordNo"           column="ORD_NO"         /> <!-- 주문_일련번호 -->
+        <result property="ordGoodsNo"      column="ORD_GOODS_NO"   /> <!-- 주문_상품_일련번호 (수정을 위한 고유번호) -->
+    </resultMap>
+    
+    <!-- 연동대상 목록 (주문정보) 조회 -->
+    <select id="bdGetConList" parameterType="map" statementType="CALLABLE"
+        resultType="hashmap">
+        <choose>
+            <when test='in_VERSION != null and in_VERSION != "V01"'>
+	        { 
+	            CALL PKG_SY_CON_POS.BD_GET_CON_LIST_${in_VERSION} (
+	                #{in_LANGUAGE, mode=IN, jdbcType=VARCHAR, javaType=string},
+	                #{in_DEVICE, mode=IN, jdbcType=VARCHAR, javaType=string},
+	                #{in_SERVICE_YN, mode=IN, jdbcType=VARCHAR, javaType=string},
+	
+	                #{out_CODE, mode=OUT, jdbcType=INTEGER, javaType=int},
+	                #{out_MSG, mode=OUT, jdbcType=VARCHAR, javaType=string},
+	                #{out_VALUE, mode=OUT, jdbcType=VARCHAR, javaType=string},
+	                #{out_ROW1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=conInfo},
+	                #{out_ROW2, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=goods},
+	                #{out_ROW3, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=addGoods}
+	            )
+	        }
+            </when>
+            <otherwise>
+            { 
+                CALL PKG_SY_CON_POS.BD_GET_CON_LIST_V01 (
+                    #{in_LANGUAGE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_DEVICE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_SERVICE_YN, mode=IN, jdbcType=VARCHAR, javaType=string},
+    
+                    #{out_CODE, mode=OUT, jdbcType=INTEGER, javaType=int},
+                    #{out_MSG, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_VALUE, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_ROW1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=conInfo},
+                    #{out_ROW2, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=goods},
+                    #{out_ROW3, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=addGoods}
+                )
+            }
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!--  만나주문 전송(SD02_01) 연동 상태 처리 (0: 대기중, 1: 전송완료, 2: 전송실패, 3: 전송취소대기(대기중으로 자동변경))
+          연동 처리 구분에 따른 시간 업데이트  (1: 주문접수, 2: 주문수정, 3: 주문취소) -->
+    <update id="updateConStatus" parameterType="map">
+        UPDATE MN_A1_TODAY_CON_POS 
+        <set>
+            <if test='CON_STATUS != null'> CON_STATUS = #{CON_STATUS}, </if>
+            <if test='CON_ACT_TYPE != null and CON_ACT_TYPE == "1"'> CON_ORD_DATE = SYSDATE, </if>
+            <if test='CON_ACT_TYPE != null and CON_ACT_TYPE == "2"'> CON_MOD_DATE = SYSDATE, </if>
+            <if test='CON_ACT_TYPE != null and CON_ACT_TYPE == "3"'> CON_CANCEL_DATE = SYSDATE, </if>
+            <if test='CON_STATUS != null'> MOD_DATE = SYSDATE </if>
+        </set>
+        WHERE ORD_NO = #{ORD_NO}
+          AND POS_TYPE_CD = #{POS_TYPE_CD}
+    </update>
+    
+    <!-- 상태변경 연동대상 목록 조회 -->
+    <select id="bdGetConStatusList" parameterType="map" statementType="CALLABLE"
+        resultType="hashmap">
+        <choose>
+            <when test='in_VERSION != null and in_VERSION != "V01"'>
+            { 
+                CALL PKG_SY_CON_POS.BD_GET_CON_STATUS_LIST_${in_VERSION} (
+                    #{in_LANGUAGE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_DEVICE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_SERVICE_YN, mode=IN, jdbcType=VARCHAR, javaType=string},
+    
+                    #{out_CODE, mode=OUT, jdbcType=INTEGER, javaType=int},
+                    #{out_MSG, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_VALUE, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_ROW1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=conStatusInfo}
+                )
+            }
+            </when>
+            <otherwise>
+            { 
+                CALL PKG_SY_CON_POS.BD_GET_CON_STATUS_LIST_V01 (
+                    #{in_LANGUAGE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_DEVICE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                    #{in_SERVICE_YN, mode=IN, jdbcType=VARCHAR, javaType=string},
+    
+                    #{out_CODE, mode=OUT, jdbcType=INTEGER, javaType=int},
+                    #{out_MSG, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_VALUE, mode=OUT, jdbcType=VARCHAR, javaType=string},
+                    #{out_ROW1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=conStatusInfo}
+                )
+            }
+            </otherwise>
+        </choose>
+    </select>
+    
+    <!--  만나주문 상태(SD01_01) 연동 상태 처리 (0: 대기중, 1: 전송완료, 2: 전송실패) -->
+    <update id="updateConStsStatus" parameterType="map">
+        UPDATE MN_A1_TODAY_CON_POS_STS
+        <set>
+            <if test='CON_STATUS != null'> CON_STATUS = #{CON_STATUS}, </if>
+            CON_DATE = SYSDATE,
+            MOD_DATE = SYSDATE
+        </set>
+        WHERE CON_SEQ_NO = #{CON_SEQ_NO}
+    </update>
+    
+    <!-- 만나주문 전송(SD02_01) 리턴값 업데이트 -->
+    <update id="updateSD0201" parameterType="map">
+	        UPDATE MN_A1_TODAY
+	        <set>
+	            POS_ORD_CODE = #{POS_ORD_CODE}, 
+	            POS_ORD_DATE = #{POS_ORD_DATE},
+	            MOD_DATE = SYSDATE
+            </set>
+	        WHERE ORD_NO = #{ORD_NO}
+    </update>
+    
+</mapper>

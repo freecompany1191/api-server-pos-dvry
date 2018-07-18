@@ -1,0 +1,117 @@
+start:
+  time: '045000'
+end:
+  time: '050000'
+
+#REST API KEY
+kakao:
+  restapi:
+    key: KakaoAK ff163f8e19f73c100ad96c5eec1c618b
+
+  api:
+    url:
+      #주소 검색
+      address: https://dapi.kakao.com/v2/local/search/address.json
+      #좌표 -> 행정구역정보 변환
+      coord2regioncode: https://dapi.kakao.com/v2/local/geo/coord2regioncode.json
+      #좌표 -> 주소 변환
+      coord2address: https://dapi.kakao.com/v2/local/geo/coord2address.json
+      #좌표계 변환
+      transcoord: https://dapi.kakao.com/v2/local/geo/transcoord.json
+      #키워드로 장소 검색
+      keyword: https://dapi.kakao.com/v2/local/search/keyword.json
+
+#KAKAO 주소검색 API URL
+location:
+  api1:
+    url: http://slb-341506.ncloudslb.com:8085/location/v1/location
+  api2:
+    url: http://slb-341506.ncloudslb.com:8080/location/v1/location
+
+#TEST 모드 여부 true : 사용, false : 사용안함
+test:
+  mode: true
+  
+#연동대상목록 출력 프로시저 버전
+pos:
+  conlist:
+    version: V01
+
+#TEST API KEY
+#SKY포스 VALUE : MANNA_TEST_POS주문연동_SKY포스
+#SKY포스 KEY : Ypm6Y2CVMW8R5eN92XzzAQ==
+#유니타스 VALUE : MANNA_TEST_POS주문연동_유니타스
+#유니타스 KEY : 9OD7jorfWz/fU42TIYqUiQ==
+#SPC VALUE : MANNA_TEST_POS주문연동_SPC
+#SPC KEY : 4Kc7az6zsxDZJM7s/CM/QA==
+#솔비 VALUE : MANNA_TEST_POS주문연동_SolBi
+#솔비 KEY : Dba6/pAFiUlSKMnCgjSLAw==
+#OK포스 VALUE : MANNA_TEST_POS주문연동_OkPos
+#OK포스 KEY : D2vQCQtyzhZDWu0wf/YXxA==
+
+#REAL API KEY
+#SKY포스 VALUE : MANNA_REAL_POS주문연동_SKY포스
+#SKY포스 KEY : jL2obPEg+xbJzcJpIKfvhg==
+#유니타스 VALUE : MANNA_REAL_POS주문연동_유니타스
+#유니타스 KEY : ssJwZ3tRNMrx0pTfnLl32A==
+#SPC VALUE : MANNA_REAL_POS주문연동_SPC
+#SPC KEY : OAM86HpfQ3sRBSQI9VWDoQ==
+#솔비 VALUE : MANNA_REAL_POS주문연동_SolBi
+#솔비 KEY : U53SJCxuz6JpwUs0ntbqfA==
+#OK포스 VALUE : MANNA_REAL_POS주문연동_OkPos
+#OK포스 KEY : 55rBiQ9+Nedy708ap6OjxA==
+
+#CALLBACK API SERVER KEY(운영버전)
+#개발버전은 각 yaml 파일에 설정
+#URL은 DB에서 가져오므로 사용하지 않음
+sky:
+  callback:
+    apikey: jL2obPEg+xbJzcJpIKfvhg==
+  rest:
+    apikey: Ad3s53Xz4hN9zj684qH8Yg==
+    #SKY POS REST API VERSION
+    SD0101:
+      version: V01
+      url: http://sky-api.posmaster.co.kr/bridge/orderForManna/setOrderStatus
+      #url: http://dev-api.posmaster.co.kr:8080/bridge/orderForManna/setOrderStatus
+      #url: http://kko3-api.posmaster.co.kr/bridge/orderForManna/setOrderStatus
+    SD0201:
+      version: V01
+      url: http://sky-api.posmaster.co.kr/bridge/orderForManna/setOrder
+      #url: http://dev-api.posmaster.co.kr:8080/bridge/orderForManna/setOrder
+      #url: http://kko3-api.posmaster.co.kr/bridge/orderForManna/setOrder
+  #SKY POS TOKEN ID AND PASSWORD
+  token:
+    idandpw: MANNA01:MANNA171103
+    #SKY POS TOKEN REST API SERVER URI
+    rest:
+      url: https://pos-api.posmaster.co.kr/auth/api/login
+      #SKY POS REST API SERVER TEST URI
+      test:
+        url: http://sky-api.posmaster.co.kr/bridge/api/test
+unitas:
+  callback: 
+    apikey: ssJwZ3tRNMrx0pTfnLl32A==
+  rest:
+    apikey: 9OD7jorfWz/fU42TIYqUiQ==
+spc:
+  callback:
+    apikey: OAM86HpfQ3sRBSQI9VWDoQ==
+  rest:
+    apikey: 4Kc7az6zsxDZJM7s/CM/QA==
+easy:
+  callback:
+    apikey: Q+6MIkJtMQKIB5Uymm8f5w==
+solbi:
+  callback:
+    apikey: U53SJCxuz6JpwUs0ntbqfA==
+okpos:
+  callback:
+    apikey: 55rBiQ9+Nedy708ap6OjxA==
+
+property: 
+  local: local_default
+  dev: dev_default
+  prod: prod_default
+  prod1: prod1_default
+  prod2: prod2_default

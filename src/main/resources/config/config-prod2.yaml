@@ -1,0 +1,20 @@
+#서버 프로필 확인
+property: 
+  prod2: prod2_apply
+
+#스케쥴러 전체 동작여부
+all:
+  scheduler:
+    use: true
+#유니타스 스케쥴러 동작여부
+unitas:
+  scheduler:
+    use: true
+#SPC 스케쥴러 동작여부
+spc:
+  scheduler:
+    use: true
+#SKY POS 스케쥴러 동작여부
+sky:
+  scheduler:
+    use: true

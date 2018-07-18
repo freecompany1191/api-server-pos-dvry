@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2015-2016 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2osys.pos.mapper.LogMapper">
+
+	<!-- 에러로그 입력 -->
+    <select id="spSyPutLogError" parameterType="java.util.Map" statementType="CALLABLE">
+        { 
+            CALL SP_SY_PUT_LOG_ERROR (
+                #{in_LOG_TYPE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_LOG_OBJECT, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_LOG_MSG, mode=IN, jdbcType=VARCHAR, javaType=string}
+            )
+        }
+    </select>
+    
+    <!-- 서버 JSON 요청로그 입력 -->
+    <select id="spSyPutLogTmpSvr" parameterType="java.util.Map" statementType="CALLABLE">
+        { 
+            CALL SP_SY_PUT_LOG_TMP_SVR (
+                #{in_LOG_TYPE, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_REQ_NUM, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_USER_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_DEVICE_ID, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_LOG_MSG, mode=IN, jdbcType=VARCHAR, javaType=string},
+                #{in_APP_VER, mode=IN, jdbcType=VARCHAR, javaType=string}
+            )
+        }
+    </select>
+</mapper>

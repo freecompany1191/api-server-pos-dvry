@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    name: master,slave
+    master:
+      jndi-name: java:/comp/env/jdbc/master
+    slave: 
+      jndi-name: java:/comp/env/jdbc/slave
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  
+logging:
+  config: classpath:logback-spring.xml
+  
+server:
+  port: 8080
+  
+---
+spring:
+  profiles: local
+
+---
+
+spring:
+  profiles: dev
+  
+---
+
+spring:
+  profiles: prod1
+  
+---
+
+spring:
+  profiles: prod2

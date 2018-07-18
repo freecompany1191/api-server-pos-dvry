@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <include resource="default-log-path.xml" />
+    <include resource="default-log-setting.xml" />
+    
+    <!-- POS 주문연동 로그 -->
+    <!-- REQUEST Loggers -->
+    <logger name="com.o2osys.pos.controller" additivity="true">
+       <level value="INFO"/>
+       <appender-ref ref="REQUEST_ROLLING" />
+    </logger>
+    
+    <!-- REQUEST Loggers -->
+    <logger name="com.o2osys.pos.service.PosCallbackService" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REQUEST_ROLLING" />
+    </logger>
+    
+    <!-- REQUEST Loggers -->
+    <logger name="com.o2osys.pos.mapper.PosMapper" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REQUEST_ROLLING" />
+    </logger>
+    
+    <!-- REST Loggers -->
+    <logger name="com.o2osys.pos.service.impl.PosScheduledServiceImpl" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REST_ROLLING" />
+    </logger>
+    
+    <!-- REST Loggers -->
+    <logger name="com.o2osys.pos.service.impl.PosScheduledMapperServiceImpl" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REST_ROLLING" />
+    </logger>
+    
+    <!-- REQUEST Loggers -->
+    <logger name="com.o2osys.pos.mapper.ConMapper" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REQUEST_ROLLING" />
+    </logger>
+    
+    <!-- REST Loggers -->
+    <logger name="com.o2osys.pos.service.impl.SkyRestServiceImpl" additivity="ture">
+       <level value="INFO"/>
+       <appender-ref ref="REST_ROLLING" />
+    </logger>
+    
+    <!-- Loggers -->
+    <logger name="com.o2osys.pos" additivity="false">
+       <level value="INFO"/>
+       <appender-ref ref="ERROR_ROLLING" />
+       <appender-ref ref="ROLLING" />
+       <appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <root level="INFO">
+<!--        <appender-ref ref="CONSOLE" /> -->
+    </root>
+</configuration>

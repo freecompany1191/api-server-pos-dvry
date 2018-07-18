@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    
+    <!-- pattern -->
+    <!-- 
+    <property name="LOG_PATTERN" value="[%clr(%d){faint}][%clr(${LOG_LEVEL_PATTERN:-%5p})][%-4relative][%thread] %clr(%logger){cyan} [%method:%line] %clr(-){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+     -->
+    <!-- 
+    <property name="LOG_PATTERN" value="[%d][%highlight(%-5level)][%-4relative][%thread] %cyan(%logger) [%boldGreen(%method:%line)] - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    -->
+    <property name="LOG_PATTERN" value="[%d][%highlight(%-5level)] %cyan(%logger{30}) [%boldGreen(%method:%line)] - %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <!-- 콘솔 로그 출력 --> 
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+              <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="ROLLING"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_LOG_PATH}/pos.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${FILE_LOG_PATH}/pos-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+                <!-- maxFileSize>10KB</maxFileSize -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 30 일단위로 삭제 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+              <charset>UTF-8</charset>
+              <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="REST_ROLLING"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_LOG_PATH}/rest/pos_rest.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${FILE_LOG_PATH}/rest/pos_rest-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+                <!-- maxFileSize>10KB</maxFileSize -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 30 일단위로 삭제 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+              <charset>UTF-8</charset>
+              <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="REQUEST_ROLLING"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_LOG_PATH}/req/pos_req.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${FILE_LOG_PATH}/req/pos_req-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+                <!-- maxFileSize>10KB</maxFileSize -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 30 일단위로 삭제 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+              <charset>UTF-8</charset>
+              <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+     <appender name="ERROR_ROLLING"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${FILE_LOG_PATH}/error/pos_error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>${FILE_LOG_PATH}/error/pos_error-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- 90 일단위로 삭제 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <!-- 
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+         -->
+           <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+              <charset>UTF-8</charset>
+              <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+      <!-- Loggers -->
+    <logger name="org.springframework" additivity="true">
+       <level value="ERROR"/>
+       <appender-ref ref="ERROR_ROLLING" />
+       <appender-ref ref="ROLLING" />
+       <appender-ref ref="CONSOLE" />
+    </logger>
+    
+    <!-- Loggers -->
+    <logger name="com.fasterxml.jackson" additivity="true">
+       <level value="ERROR"/>
+       <appender-ref ref="ERROR_ROLLING" />
+       <appender-ref ref="ROLLING" />
+       <appender-ref ref="CONSOLE" />
+    </logger>
+    
+</included>

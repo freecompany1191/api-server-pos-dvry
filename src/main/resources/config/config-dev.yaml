@@ -1,0 +1,48 @@
+#서버 프로필 확인
+property: 
+  dev: dev_apply
+
+#KAKAO 주소검색 API URL
+location:
+  api1:
+    url: http://220.230.122.21:8085/location/v1/location
+  api2:
+    url: http://220.230.122.21:8080/location/v1/location
+    
+#TEST 모드 여부 true : 사용, false : 사용안함
+test:
+  mode: true
+
+#스케쥴러 전체 동작여부
+all:
+  scheduler:
+    use: true
+
+#CALLBACK API SERVER KEY
+sky:
+  callback:
+    apikey: Ypm6Y2CVMW8R5eN92XzzAQ==
+  #SKY POS 스케쥴러 동작여부
+  scheduler:
+    use: true
+unitas:
+  callback: 
+    apikey: 9OD7jorfWz/fU42TIYqUiQ==
+  #UNITAS 스케쥴러 동작여부
+  scheduler:
+    use: true
+spc:
+  callback:
+    apikey: 4Kc7az6zsxDZJM7s/CM/QA==
+  #SPC 스케쥴러 동작여부
+  scheduler:
+    use: true
+easy:
+  callback:
+    apikey: bYYcJjwgk5s98usYK3/DLQ==
+solbi:
+  callback:
+    apikey: Dba6/pAFiUlSKMnCgjSLAw==
+okpos:
+  callback:
+    apikey: D2vQCQtyzhZDWu0wf/YXxA==
